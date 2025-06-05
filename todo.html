@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Todo Lists</title>
+</head> 
+
+<body>
+
+    <h2>Todo List 1</h2>
+    <button onclick="handleInput('list1')">ADD TODO</button>
+    <ul id="list1"></ul>
+
+    <h2>Todo List 2</h2>
+    <button onclick="handleInput('list2')">ADD TODO</button>
+    <ul id="list2"></ul>
+
+    <h2>Todo List 3</h2>
+    <button onclick="handleInput('list3')">ADD TODO</button>
+    <ul id="list3"></ul>
+
+    <script>
+        function handleInput(listId) {
+            let list = document.getElementById(listId);
+            let todo_task = prompt("Enter the task:");
+            todo_task = todo_task.trim();
+
+            if (todo_task !== "") {
+                let li = document.createElement("li");
+                li.innerText = todo_task;
+
+                let btn = document.createElement("button");
+                btn.innerText = "complete";
+                btn.addEventListener("click", () => {
+                    handleCompleted(li);
+                });
+
+
+
+                let edit_btn = document.createElement("button");
+                edit_btn.innerText = "edit";
+                edit_btn.addEventListener("click", () => {
+                    handleEdited(li);
+                });
+
+
+                let delete_btn = document.createElement("button");
+                delete_btn.innerText = "delete";
+                delete_btn.addEventListener("click", () => {
+                    handleDeleted(li, btn, edit_btn, delete_btn);
+                });
+
+                list.append(li, btn, edit_btn, delete_btn);
+            }
+        }
+
+
+        function handleCompleted(para) {
+            para.style.textDecoration = "line-through";
+            para.style.color = "blue";
+        }
+
+        function handleEdited(li) {
+            let newTask = prompt("Edit the task:", li.innerText);
+            if (newTask !== null) {
+                newTask = newTask.trim();
+                if (newTask !== "") {
+                    li.innerText = newTask;
+                }
+            }
+        }
+
+        function handleDeleted(li, completeBtn, editBtn, deleteBtn) {
+            li.remove();
+            
+        }
+    </script>
+
+</body>
+</html>
